@@ -6,11 +6,7 @@
     "type": "command",
     "command": "bash \"$HOME/.claude/statusline-command.sh\""
   },
-  "enabledPlugins": {
-    "notion-workspace-plugin@notion-plugin-marketplace": true,
-    "langchain-skills@langchain-skills": true,
-    "harness@harness-marketplace": true
-  },
+  "enabledPlugins": {},
   "extraKnownMarketplaces": {
     "notion-plugin-marketplace": {
       "source": {
