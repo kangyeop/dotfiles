@@ -5,15 +5,7 @@ set -euo pipefail
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BACKUP_DIR="$HOME/.dotfiles-backup/$(date +%Y%m%d%H%M%S)"
 
-# repo-relative path -> target path
-MAPPINGS=(
-  "zsh/zshrc:$HOME/.zshrc"
-  "zsh/p10k.zsh:$HOME/.p10k.zsh"
-  "claude/settings.json:$HOME/.claude/settings.json"
-  "claude/mcp.json:$HOME/.claude/.mcp.json"
-  "claude/statusline-command.sh:$HOME/.claude/statusline-command.sh"
-  "codex/config.toml:$HOME/.codex/config.toml"
-)
+source "$REPO_DIR/mappings.sh"
 
 link_one() {
   local src="$REPO_DIR/$1"

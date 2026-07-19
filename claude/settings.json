@@ -13,18 +13,6 @@
         "source": "github",
         "repo": "makenotion/claude-code-notion-plugin"
       }
-    },
-    "langchain-skills": {
-      "source": {
-        "source": "github",
-        "repo": "langchain-ai/langchain-skills"
-      }
-    },
-    "harness-marketplace": {
-      "source": {
-        "source": "github",
-        "repo": "revfactory/harness"
-      }
     }
   },
   "skipDangerousModePermissionPrompt": true,
