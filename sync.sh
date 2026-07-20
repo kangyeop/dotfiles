@@ -26,14 +26,15 @@ sync_one() {
     return
   fi
 
-  if diff -q "$dest" "$src" >/dev/null 2>&1; then
+  if diff -rq "$dest" "$src" >/dev/null 2>&1; then
     echo "relink  $dest (content already matched repo)"
   else
     echo "pull    $dest -> $src (repo updated with local changes)"
-    cp "$dest" "$src"
+    rm -rf "$src"
+    cp -r "$dest" "$src"
   fi
 
-  rm "$dest"
+  rm -rf "$dest"
   ln -s "$src" "$dest"
 }
 

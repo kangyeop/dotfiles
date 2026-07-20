@@ -1,5 +1,5 @@
-model_reasoning_effort = "high"
-model = "gpt-5.4"
+model_reasoning_effort = "medium"
+model = "gpt-5.6-terra"
 model_context_window = 1000000
 model_auto_compact_token_limit = 900000
 
@@ -9,15 +9,16 @@ trust_level = "trusted"
 [projects."/Users/yeop"]
 trust_level = "trusted"
 
-[notice.model_migrations]
-"gpt-5.3-codex" = "gpt-5.4"
+[projects."/Users/yeop/dev/dotfiles"]
+trust_level = "trusted"
 
 [features]
 multi_agent = true
 child_agents_md = true
 
 [tui]
-status_line = ["model-with-reasoning", "git-branch", "context-remaining", "total-input-tokens", "total-output-tokens", "five-hour-limit"]
+status_line = ["current-dir", "model", "git-branch", "five-hour-limit", "weekly-limit", "context-used"]
+status_line_use_colors = true
 
 [mcp_servers.notion]
 url = "https://mcp.notion.com/mcp"

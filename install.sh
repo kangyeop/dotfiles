@@ -1,5 +1,6 @@
 #!/bin/bash
-# Symlinks this repo's config files into place. Idempotent — safe to re-run.
+# Symlinks this repo's config files into place, and installs the couple of
+# external packages this config depends on. Idempotent — safe to re-run.
 set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -31,3 +32,10 @@ link_one() {
 for mapping in "${MAPPINGS[@]}"; do
   link_one "${mapping%%:*}" "${mapping#*:}"
 done
+
+if command -v agent-browser >/dev/null 2>&1; then
+  echo "ok      agent-browser (npm)"
+else
+  npm install -g agent-browser
+  echo "installed agent-browser (npm)"
+fi

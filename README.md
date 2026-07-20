@@ -10,8 +10,13 @@
 - [oh-my-zsh](https://ohmyz.sh) + [powerlevel10k](https://github.com/romkatv/powerlevel10k)
 - [nvm](https://github.com/nvm-sh/nvm), rbenv, [bun](https://bun.sh)
 - `fzf`, `zsh-syntax-highlighting`, `zsh-autosuggestions` (`.zshrc`에서 참조하는 zsh 플러그인)
-- [Claude Code](https://claude.com/claude-code) CLI, 그리고 `oh-my-claude-sisyphus` 패키지 (`~/.claude/skills`, `~/.agents/skills` 관리)
-- Codex CLI, 그리고 `oh-my-codex` (`~/.codex/prompts` 관리)
+- [Claude Code](https://claude.com/claude-code) CLI
+- [Codex CLI](https://developers.openai.com/codex/cli), 그리고 [`openai/codex-plugin-cc`](https://github.com/openai/codex-plugin-cc) Claude Code 플러그인 (Claude Code 안에서 `/plugin marketplace add`, `/plugin install`로 설치 — `claude/settings.json`에 이미 등록돼 있어서 재시작 시 자동 동기화됨)
+- `oh-my-codex` (`~/.codex/prompts` 관리)
+
+`install.sh`가 자동으로 설치해주는 것:
+
+- `agent-browser` npm 패키지 (설치되면서 `~/.claude/skills/agent-browser` 심링크를 자체적으로 등록함)
 
 ## 사용법
 
@@ -34,6 +39,9 @@ cd ~/dotfiles
 | `claude/settings.json` | `~/.claude/settings.json` |
 | `claude/mcp.json` | `~/.claude/.mcp.json` |
 | `claude/statusline-command.sh` | `~/.claude/statusline-command.sh` |
+| `claude/skills/commit` | `~/.claude/skills/commit` |
+| `claude/skills/pr` | `~/.claude/skills/pr` |
+| `claude/skills/codex-delegate` | `~/.claude/skills/codex-delegate` |
 | `codex/config.toml` | `~/.codex/config.toml` |
 
 ## 알려진 예외사항 (기기별로 수동 수정 필요)
