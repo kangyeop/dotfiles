@@ -1,5 +1,6 @@
 #!/bin/bash
-# Opposite of install.sh: pulls this machine's current config back into the repo.
+# Opposite of install.sh: pulls this machine's shared config back into the repo.
+# Personal config templates are intentionally one-way and excluded.
 # Useful when a target file drifted from a symlink into a real file (an editor's
 # atomic-save can replace a symlink with a plain file) and picked up local edits.
 set -euo pipefail

@@ -4,7 +4,7 @@
 
 ## 사전 준비
 
-`install.sh`를 실행하기 전에 아래 항목들은 직접 설치해야 함 — 이 레포는 설정 파일을 심링크할 뿐, 툴 자체를 설치하지는 않음:
+`install.sh`를 실행하기 전에 아래 항목들은 직접 설치해야 함 — 이 레포는 설정 파일을 심링크하고, Claude/Codex 기본 설정만 최초 1회 복사할 뿐, 툴 자체를 설치하지는 않음:
 
 - [Homebrew](https://brew.sh)
 - [oh-my-zsh](https://ohmyz.sh) + [powerlevel10k](https://github.com/romkatv/powerlevel10k)
@@ -26,9 +26,9 @@ cd ~/dotfiles
 ./install.sh
 ```
 
-`install.sh`는 idempotent함. 대상 파일이 이미 존재하면(그리고 올바른 심링크가 아니면) 심링크를 걸기 전에 `~/.dotfiles-backup/<timestamp>/`로 옮겨둠.
+`install.sh`는 idempotent함. 심링크 대상 파일이 이미 존재하면(그리고 올바른 심링크가 아니면) 심링크를 걸기 전에 `~/.dotfiles-backup/<timestamp>/`로 옮겨둠. 단, `claude/settings.json`과 `codex/config.toml`은 개인 상태가 자동 기록되는 것을 막기 위해 심링크하지 않는 초기 템플릿이다. 대상 파일이 없을 때만 복사하며, 이미 있으면 보존한다.
 
-반대 방향으로 — 즉 로컬 변경사항을 레포에 반영하고 싶을 때는(예: 에디터의 atomic-save가 추적 중인 심링크를 일반 파일로 덮어썼거나, 이 기기에서 설정을 직접 손으로 고친 경우) `./sync.sh`를 실행. 드리프트된 대상 파일의 내용을 레포 파일로 복사한 뒤 다시 심링크로 되돌림. 두 스크립트는 `mappings.sh`에 정의된 동일한 파일 목록을 공유함.
+반대 방향으로 — 즉 로컬 변경사항을 레포에 반영하고 싶을 때는(예: 에디터의 atomic-save가 추적 중인 심링크를 일반 파일로 덮어썼거나, 이 기기에서 설정을 직접 손으로 고친 경우) `./sync.sh`를 실행. 드리프트된 대상 파일의 내용을 레포 파일로 복사한 뒤 다시 심링크로 되돌림. 두 스크립트는 `mappings.sh`에 정의된 동일한 파일 목록을 공유한다. Claude/Codex 설정은 개인 파일이므로 `sync.sh` 대상이 아니다.
 
 ## 추적 대상
 
@@ -36,13 +36,13 @@ cd ~/dotfiles
 |---|---|
 | `zsh/zshrc` | `~/.zshrc` |
 | `zsh/p10k.zsh` | `~/.p10k.zsh` |
-| `claude/settings.json` | `~/.claude/settings.json` |
+| `claude/settings.json` | `~/.claude/settings.json`에 최초 1회 복사하는 기본 템플릿 |
 | `claude/mcp.json` | `~/.claude/.mcp.json` |
 | `claude/statusline-command.sh` | `~/.claude/statusline-command.sh` |
 | `claude/skills/commit` | `~/.claude/skills/commit` |
 | `claude/skills/pr` | `~/.claude/skills/pr` |
 | `claude/skills/codex-delegate` | `~/.claude/skills/codex-delegate` |
-| `codex/config.toml` | `~/.codex/config.toml` |
+| `codex/config.toml` | `~/.codex/config.toml`에 최초 1회 복사하는 기본 템플릿 |
 
 ## 알려진 예외사항 (기기별로 수동 수정 필요)
 

@@ -1,6 +1,7 @@
 #!/bin/bash
-# Symlinks this repo's config files into place, and installs the couple of
-# external packages this config depends on. Idempotent — safe to re-run.
+# Symlinks this repo's shared config files into place, copies personal config
+# defaults when needed, and installs the couple of external packages this config
+# depends on. Idempotent — safe to re-run.
 set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -29,8 +30,30 @@ link_one() {
   echo "linked  $dest -> $src"
 }
 
+copy_template_one() {
+  local src="$REPO_DIR/$1"
+  local dest="$2"
+
+  mkdir -p "$(dirname "$dest")"
+
+  if [ -L "$dest" ] && [ "$(readlink "$dest")" = "$src" ]; then
+    rm "$dest"
+    cp "$src" "$dest"
+    echo "copied  $src -> $dest (replaced symlink)"
+  elif [ -e "$dest" ] || [ -L "$dest" ]; then
+    echo "keep    $dest (existing personal config)"
+  else
+    cp "$src" "$dest"
+    echo "copied  $src -> $dest"
+  fi
+}
+
 for mapping in "${MAPPINGS[@]}"; do
   link_one "${mapping%%:*}" "${mapping#*:}"
+done
+
+for mapping in "${TEMPLATE_MAPPINGS[@]}"; do
+  copy_template_one "${mapping%%:*}" "${mapping#*:}"
 done
 
 if command -v agent-browser >/dev/null 2>&1; then
