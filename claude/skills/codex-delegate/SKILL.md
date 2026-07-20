@@ -26,7 +26,7 @@ Personal design/implement split: Claude does discovery and design, Codex writes 
 
 1. Once the plan is clear, write it as a specific, self-contained instruction for Codex — file paths, function/interface names, the design decisions already made. Codex has no memory of this conversation, so brief it like a colleague walking in cold: state the goal, the constraints already resolved, and what "done" looks like. Don't make Codex re-derive decisions Claude already made.
 2. Delegate with `/codex:rescue --background <instruction>`. Default to background — implementation passes are exactly the kind of work not worth blocking the conversation on.
-3. As soon as a session id is available, surface it (and the `codex resume <session-id>` command) to the user — they can open that in another terminal or tmux pane to watch Codex work live instead of relying on status polls.
+3. As soon as a session id is available, check whether Claude is itself running inside a tmux session (`[ -n "$TMUX" ]`). If so, open the live session automatically: `tmux split-window -h "codex resume <session-id>"` — no need to make the user do it by hand. If that check fails (not in tmux, or the split command errors), fall back to surfacing the session id and the `codex resume <session-id>` command so the user can open it themselves in whatever terminal setup they have.
 4. If there's other useful work to do meanwhile (more planning, reading related code, prepping how you'll verify the result), do it. Otherwise check with `/codex:status` after a reasonable interval — don't tight-loop-poll.
 
 ## After Codex finishes
