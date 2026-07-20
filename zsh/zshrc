@@ -45,3 +45,6 @@ alias gp='git pull origin'
 
 # claude
 alias cc='claude --dangerously-skip-permissions'
+
+# codex
+alias cdx='codex --dangerously-bypass-approvals-and-sandbox'
