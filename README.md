@@ -32,6 +32,8 @@ cd ~/dotfiles
 
 ## 추적 대상
 
+`skills/`는 에이전트별로 디렉토리를 분리한다 — `skills/common`(claude/codex 공용), `skills/claude`(claude 전용), `skills/codex`(codex 전용, 아직은 README만 있고 codex 전용 스킬이 생기면 여기에 추가). 실제 심링크 목적지는 에이전트 구분과 무관하게 전부 `~/.claude/skills/<name>` 평면 구조다.
+
 | 레포 파일 | 심링크 위치 |
 |---|---|
 | `zsh/zshrc` | `~/.zshrc` |
@@ -39,9 +41,9 @@ cd ~/dotfiles
 | `claude/settings.json` | `~/.claude/settings.json`에 최초 1회 복사하는 기본 템플릿 |
 | `claude/mcp.json` | `~/.claude/.mcp.json` |
 | `claude/statusline-command.sh` | `~/.claude/statusline-command.sh` |
-| `claude/skills/commit` | `~/.claude/skills/commit` |
-| `claude/skills/pr` | `~/.claude/skills/pr` |
-| `claude/skills/codex-delegate` | `~/.claude/skills/codex-delegate` |
+| `skills/common/commit` | `~/.claude/skills/commit` |
+| `skills/common/pr` | `~/.claude/skills/pr` |
+| `skills/claude/codex-delegate` | `~/.claude/skills/codex-delegate` |
 | `codex/config.toml` | `~/.codex/config.toml`에 최초 1회 복사하는 기본 템플릿 |
 
 ## 알려진 예외사항 (기기별로 수동 수정 필요)

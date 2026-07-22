@@ -4,9 +4,9 @@ MAPPINGS=(
   "zsh/p10k.zsh:$HOME/.p10k.zsh"
   "claude/mcp.json:$HOME/.claude/.mcp.json"
   "claude/statusline-command.sh:$HOME/.claude/statusline-command.sh"
-  "claude/skills/commit:$HOME/.claude/skills/commit"
-  "claude/skills/pr:$HOME/.claude/skills/pr"
-  "claude/skills/codex-delegate:$HOME/.claude/skills/codex-delegate"
+  "skills/common/commit:$HOME/.claude/skills/commit"
+  "skills/common/pr:$HOME/.claude/skills/pr"
+  "skills/claude/codex-delegate:$HOME/.claude/skills/codex-delegate"
 )
 
 # Repo defaults that become independent personal files after their first install.
