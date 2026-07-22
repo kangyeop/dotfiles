@@ -28,3 +28,4 @@ Same format as [[commit]] messages: `<type>(<scope>): <subject>`, imperative, lo
 - Summary bullets focus on *why*, not a line-by-line diff recap — the diff already shows what changed.
 - Test plan is a checklist, not prose. Include only checks that are real and applicable to this PR (don't pad with generic boilerplate).
 - Do not add reviewer/label footers automatically — those are repo- or org-specific and should only be set when the user asks or an existing repo convention clearly expects it.
+- Body content (summary bullets, test plan items) is written in Korean. Section headers (`## Summary`, `## Test plan`) stay in English as shown above. The PR title stays in English Conventional Commits format per [[commit]] — only the body switches language.
