@@ -55,3 +55,8 @@ alias cc='claude --dangerously-skip-permissions'
 
 # codex
 alias cdx='codex --dangerously-bypass-approvals-and-sandbox'
+
+# Machine-local overrides. Not tracked by this repo — put anything
+# machine-specific here (work PATH entries, private env vars, one-off aliases).
+# Sourced last so it can override anything above.
+[ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
