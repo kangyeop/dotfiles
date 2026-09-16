@@ -27,7 +27,16 @@ Personal design/implement split: Claude does discovery and design, Codex writes 
 1. Once the plan is clear, write it as a specific, self-contained instruction for Codex — file paths, function/interface names, the design decisions already made. Codex has no memory of this conversation, so brief it like a colleague walking in cold: state the goal, the constraints already resolved, and what "done" looks like. Don't make Codex re-derive decisions Claude already made.
 2. Delegate with `/codex:rescue --background <instruction>`. Default to background — implementation passes are exactly the kind of work not worth blocking the conversation on.
 3. As soon as a session id is available, check whether Claude is itself running inside a tmux session (`[ -n "$TMUX" ]`). If so, open the live session automatically: `tmux split-window -h "codex resume <session-id>"` — no need to make the user do it by hand. If that check fails (not in tmux, or the split command errors), fall back to surfacing the session id and the `codex resume <session-id>` command so the user can open it themselves in whatever terminal setup they have.
-4. If there's other useful work to do meanwhile (more planning, reading related code, prepping how you'll verify the result), do it. Otherwise check with `/codex:status` after a reasonable interval — don't tight-loop-poll.
+4. **No automatic notification fires when the Codex job itself finishes.** Launching `/codex:rescue --background` via the `Agent` tool only notifies when that forwarder subagent returns — which happens as soon as the job is queued (usually well under a minute), not when Codex's implementation pass completes. Don't tell the user "you'll get notified when it's done" — that conflates the two. Also don't take the forwarder's own stdout at face value if it claims a notification is coming (`codex-companion.mjs` prints boilerplate to that effect); it isn't wired to this session.
+5. **Get a real completion notification instead of guessing.** As soon as the job id is known, make a second, separate `Bash` call with `run_in_background: true` that polls `codex-companion.mjs status <job-id> --json` in an `until` loop and exits once the status leaves `running` (e.g. `completed`/`failed`/`cancelled`), sleeping ~15s between checks. That backgrounded Bash call is itself harness-tracked — its exit fires a real notification, same as any other background Bash task. This is the single-notification pattern (not `Monitor`, which is for repeated/streaming events). Example:
+   ```bash
+   job="<job-id>"; script="<path-to>/codex-companion.mjs"
+   until status=$(node "$script" status "$job" --json 2>/dev/null | python3 -c "import json,sys; print(json.load(sys.stdin).get('job',{}).get('status',''))" 2>/dev/null); [ "$status" != "" ] && [ "$status" != "running" ]; do
+     sleep 15
+   done
+   echo "codex job $job finished: $status"
+   ```
+   Do this instead of promising the user a Codex-side alert. Only fall back to "check before your next reply, and tell the user honestly there's no push notification" if backgrounding this poll isn't possible for some reason.
 
 ## After Codex finishes
 
